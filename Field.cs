@@ -49,7 +49,7 @@ namespace Snake
                     else
                     {
                         Console.Write(FieldSpace[x, y].PointLook);
-                        
+
                     }
                 }
             }
