@@ -15,6 +15,8 @@ namespace Snake
         public FieldPoint CurrentHeadPosition { get; set; }
         public LinkedList<FieldPoint> PositionsOfBody { get; set; }
         public FieldPoint CurrentMoveDirection { get; set; }
+        public int Speedmove { get; set; }
+        private FieldPoint LastPosition { get; set; }
 
         public Snake(int snakePositionX, int snakePositionY)
         {
@@ -24,6 +26,7 @@ namespace Snake
             PositionsOfBody = new LinkedList<FieldPoint>();
             PositionsOfBody.AddFirst(CurrentHeadPosition);
             CurrentMoveDirection = new FieldPoint(+1, 0, SNAKE_BODY);
+            Speedmove = 150;
         }
 
         Dictionary<ConsoleKey, FieldPoint> MoveDirection = new()
@@ -36,23 +39,24 @@ namespace Snake
 
         public void Move(FieldPoint moveDirection)
         {
-            
-                FieldPoint oldPosition = new FieldPoint(CurrentHeadPosition.X, CurrentHeadPosition.Y, SNAKE_BODY);
 
-                FieldPoint movement = moveDirection;
-                CurrentHeadPosition.X += movement.X;
-                CurrentHeadPosition.Y += movement.Y;
+            FieldPoint oldPosition = new FieldPoint(CurrentHeadPosition.X, CurrentHeadPosition.Y, SNAKE_BODY);
 
-                if (BodyLenght > 1)
+            FieldPoint movement = moveDirection;
+            CurrentHeadPosition.X += movement.X;
+            CurrentHeadPosition.Y += movement.Y;
+
+            if (BodyLenght > 1)
+            {
+                PositionsOfBody.AddAfter(PositionsOfBody.First, oldPosition);
+
+                while (PositionsOfBody.Count > BodyLenght)
                 {
-                    PositionsOfBody.AddAfter(PositionsOfBody.First, oldPosition);
-
-                    while (PositionsOfBody.Count > BodyLenght)
-                    {
-                        PositionsOfBody.RemoveLast();
-                    }
+                    LastPosition = PositionsOfBody.Last();
+                    PositionsOfBody.RemoveLast();
                 }
-                //Thread.Sleep(500);
+            }
+            Thread.Sleep(Speedmove);
         }
 
         public void ChangeDirection()
@@ -67,11 +71,20 @@ namespace Snake
 
         public void Draw()
         {
-            foreach (var positions in PositionsOfBody)
+            foreach (FieldPoint positions in PositionsOfBody)
             {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.BackgroundColor = ConsoleColor.DarkGreen;
                 Console.SetCursorPosition(positions.X, positions.Y);
                 Console.Write(positions.PointLook);
+                Console.ResetColor();
             }
+            if (LastPosition != null)
+            {
+                Console.SetCursorPosition(LastPosition.X, LastPosition.Y);
+                Console.Write(" ");
+            }
+
         }
 
     }

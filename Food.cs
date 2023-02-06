@@ -19,7 +19,7 @@ namespace Snake
         public void Draw()
         {
             Console.SetCursorPosition(FoodPosition.X, FoodPosition.Y);
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.Write(FoodPosition.PointLook);
             Console.ResetColor();
         }
