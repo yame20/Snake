@@ -41,9 +41,9 @@ namespace Snake
         {
             if (Snake.CurrentHeadPosition.X == Food.FoodPosition.X && Snake.CurrentHeadPosition.Y == Food.FoodPosition.Y)
             {
-                if (Snake.Speedmove > 30)
+                if (Snake.MoveSpeed > 30)
                 {
-                    Snake.Speedmove = Snake.Speedmove - 10;
+                    Snake.MoveSpeed = Snake.MoveSpeed - 10;
                 }
                 Snake.BodyLenght++;
                 Food = new Food();

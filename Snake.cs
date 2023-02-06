@@ -15,7 +15,7 @@ namespace Snake
         public FieldPoint CurrentHeadPosition { get; set; }
         public LinkedList<FieldPoint> PositionsOfBody { get; set; }
         public FieldPoint CurrentMoveDirection { get; set; }
-        public int Speedmove { get; set; }
+        public int MoveSpeed { get; set; }
         private FieldPoint LastPosition { get; set; }
 
         public Snake(int snakePositionX, int snakePositionY)
@@ -26,7 +26,7 @@ namespace Snake
             PositionsOfBody = new LinkedList<FieldPoint>();
             PositionsOfBody.AddFirst(CurrentHeadPosition);
             CurrentMoveDirection = new FieldPoint(+1, 0, SNAKE_BODY);
-            Speedmove = 150;
+            MoveSpeed = 150;
         }
 
         Dictionary<ConsoleKey, FieldPoint> MoveDirection = new()
@@ -56,7 +56,7 @@ namespace Snake
                     PositionsOfBody.RemoveLast();
                 }
             }
-            Thread.Sleep(Speedmove);
+            Thread.Sleep(MoveSpeed);
         }
 
         public void ChangeDirection()
