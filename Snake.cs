@@ -65,7 +65,12 @@ namespace Snake
 
             if (MoveDirection.ContainsKey(keyInfo.Key))
             {
-                CurrentMoveDirection = MoveDirection[keyInfo.Key];
+                FieldPoint newMoveDirection = MoveDirection[keyInfo.Key];
+
+                if (newMoveDirection.X != -CurrentMoveDirection.X || newMoveDirection.Y != -CurrentMoveDirection.Y)
+                {
+                    CurrentMoveDirection = newMoveDirection;
+                }
             }
         }
 
